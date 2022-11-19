@@ -3,6 +3,7 @@
 //
 
 #include "bulkman.h"
+#include <unistd.h>
 #include <iostream>
 
 namespace bvt {
@@ -17,15 +18,16 @@ namespace bvt {
         }
 
         void BulkMan :: notify() {
- //TODO: заменнить на умн указатель           for (auto s : m_subs) {
-//TODO: заменнить на умн указатель                s->update(currentBulk);
+            std::cout << "bulk: " << currentBulk->output() << std::endl;
+//            for (auto s : m_subs) {
+//                s->update(currentBulk);
 //            }
         }
     void BulkMan::newString(const std::string& input) {
         IBulkHandlerPtr newstate = currentBulk->push(input);
         if (newstate)
         {
-            notify();
+            if (currentBulk->output() != "") { notify(); }
             currentBulk = std::move (newstate);
         };
     }

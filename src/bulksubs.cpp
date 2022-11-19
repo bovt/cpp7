@@ -12,24 +12,24 @@ namespace bvt {
         lang->subscribe(this);
     }
 
-    void Report:: update(const bulk& b) {
+    void Report:: update(const IBulkHandlerPtr b) {
         std::cout << "file print"  << std::endl;
  /*       std::ofstream a("bulk");
         a << "file print" << std::endl;
         a.close();
 */
-        std::ofstream a("bulk" + b.name());
-        a << b.output() << std::endl;
-        a.close();
+//        std::ofstream a("bulk" + b.name());
+//        a << b.output() << std::endl;
+//        a.close();
     }
 
     UserInterface:: UserInterface(Observable *lang) {
         lang->subscribe(this);
     }
 
-    void UserInterface:: update(const bulk& b) {
+    void UserInterface:: update(const IBulkHandlerPtr b) {
         std::cout << "console print" << std::endl;
-// TODO:        std::cout << "bulk: " << b.output() << std::endl;
+        std::cout << "bulk: " << b->output() << std::endl;
     }
 
 }

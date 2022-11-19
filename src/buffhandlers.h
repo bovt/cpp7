@@ -54,12 +54,15 @@ namespace bvt {
 
     class DynamicBulkHandler : public IBulkHandler {
     public:
-        StatiDynamicBulkHandlercBulkHandler() {
+        DynamicBulkHandler() {
             commands.reserve(255); // TODO: Сколько резервировать
-        };
+    };
 
         IBulkHandlerPtr push(const std::string &cmd);
+    private:
+        int nesting_count = 0;
     };
+
 
 };
 

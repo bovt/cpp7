@@ -18,7 +18,7 @@ namespace bvt {
     public:
         virtual ~Observer() = default;
 
-        virtual void update(const bulk& b) = 0;
+        virtual void update(const IBulkHandlerPtr b) = 0;
     };
 
     class Observable {
@@ -41,6 +41,7 @@ namespace bvt {
         void subscribe(bvt::Observer *obs) override;
         void set_language(); // TODO: Убрать (здесь пока что только notify живёт)
         void notify();
+        void theEnd() { notify(); };
     private:
 //        Language m_lang{Language::ru};
         size_t bulkLimit; //< Размер блока команд
@@ -52,14 +53,14 @@ namespace bvt {
     public:
         Report(Observable *lang);
 
-        void update(const bulk& b) override;
+        void update(const IBulkHandlerPtr b) override;
     };
 
     class UserInterface : public Observer {
     public:
         UserInterface(Observable *lang);
 
-        void update(const bulk& b) override;
+        void update(const IBulkHandlerPtr  b) override;
     };
 
 

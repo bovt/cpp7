@@ -15,9 +15,12 @@ namespace bvt {
         }
         sleep(1);
 
+        if (cmd == "{") {
+            return IBulkHandlerPtr{new DynamicBulkHandler()}; }
+        else {
+                commands.push_back(cmd);
+            };
 
-
-        commands.push_back(cmd);
         std::cout << "s-push"  << cmd << ", time =" << name_time << ", size = " << commands.size() << ", capacity = " << commands.capacity() << std::endl;
 
         if (commands.size() >= commands.capacity()) {
@@ -31,16 +34,26 @@ namespace bvt {
         if (commands.empty()) {
             std::time_t result = std::time(nullptr);
             name_time = std::to_string(result);
+            nesting_count++;
         }
         sleep(1);
 
-        commands.push_back(cmd);
-        std::cout << "push"  << cmd << ", time =" << name_time << ", size = " << commands.size() << ", capacity = " << commands.capacity() << std::endl;
+        if (cmd == "{") { nesting_count++; }
+            else {
+            if (cmd == "}") { nesting_count--; }
+            // TODO: Если конец строки (что здесь делать и в аналогичной ситуации в статике)
+            else {
+            commands.push_back(cmd);
+        }}
 
-        if (commands.size() >= commands.capacity()) {
+        std::cout << "d-push"  << cmd << ", time =" << name_time << ", size = " << commands.size() << ", capacity = " << commands.capacity() << ", capacity = " << output() << std::endl;
+
+        if (!nesting_count)
+        {
             return IBulkHandlerPtr{new StaticBulkHandler(commands.capacity())};
-        } else
+        } else {
             return nullptr; // TODO: Посмотреть nullptr на занятиях
+        }
     };
 
 
