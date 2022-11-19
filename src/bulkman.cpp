@@ -17,17 +17,17 @@ namespace bvt {
         }
 
         void BulkMan :: notify() {
-            for (auto s : m_subs) {
-                s->update(currentBulk);
-            }
+ //TODO: заменнить на умн указатель           for (auto s : m_subs) {
+//TODO: заменнить на умн указатель                s->update(currentBulk);
+//            }
         }
     void BulkMan::newString(const std::string& input) {
-        auto newstate = currentBulk.push(input);
+        IBulkHandlerPtr newstate = currentBulk->push(input);
         if (newstate)
         {
             notify();
-       //     currentBulk = std::move (newstate);
+            currentBulk = std::move (newstate);
         };
     }
 
-} // bvt
+};

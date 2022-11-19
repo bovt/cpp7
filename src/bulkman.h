@@ -7,7 +7,10 @@
 
 #include "bulk.h"
 #include "bulkman.h"
+#include "buffhandlers.h"
 #include <vector>
+
+
 
 
 namespace bvt {
@@ -27,11 +30,13 @@ namespace bvt {
 
     class BulkMan : public Observable {
     public:
-        BulkMan(size_t sz) : currentBulk(sz), bulkLimit(sz) {
+        BulkMan(size_t sz) : bulkLimit(sz) {
+            currentBulk = std::move(IBulkHandlerPtr{new StaticBulkHandler(sz)});
 // TODO:            subs.push_back(std::make_unique<printer>());
 // TODO:            subs.push_back(std::make_unique<filer>());
         }
-        const bulk& getBulk() const {return currentBulk; }
+        size_t getBulkSize() const {return currentBulk->size(); }
+        std::string getBulkOutput() const {return currentBulk->output(); }
         void newString(const std::string& input);
         void subscribe(bvt::Observer *obs) override;
         void set_language(); // TODO: Убрать (здесь пока что только notify живёт)
@@ -39,7 +44,7 @@ namespace bvt {
     private:
 //        Language m_lang{Language::ru};
         size_t bulkLimit; //< Размер блока команд
-        bulk currentBulk; //< Текущий блок команд
+        IBulkHandlerPtr currentBulk; //< Текущий блок команд
         std::vector<bvt::Observer *> m_subs;
     };
 
@@ -59,7 +64,6 @@ namespace bvt {
 
 
 } // bvt
-
 
 
 #endif //CPP7_BULKMAN_H

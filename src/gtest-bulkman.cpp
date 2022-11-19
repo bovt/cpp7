@@ -6,36 +6,34 @@
 #include <string>
 #include "bulkman.h"
 
-TEST(GOOGLE_TEST0, test0) {
-    ASSERT_TRUE(1 == 1);
-}
-
 TEST(GOOGLE_TEST1, test1)
 {
 bvt::BulkMan man(2);
 man.newString("1");
 man.newString("2");
-ASSERT_TRUE(man.getBulk().size() == 0);
+ASSERT_TRUE(man.getBulkSize() == 0);
 }
 
-TEST(GOOGLE_TEST2, test2)
+TEST(GOOGLE_TEST1, test2)
 {
 bvt::BulkMan man(7);
 man.newString("1");
 man.newString("2");
 man.newString("{");
-ASSERT_TRUE(man.getBulk().size() == 0);
+//std::cout << "man.getBulkSize()"  << man.getBulkSize() << std::endl;
+ASSERT_TRUE(man.getBulkSize() == 0);
 }
 
-TEST(GOOGLE_TEST3, test3)
+TEST(GOOGLE_TEST1, test3)
 {
     bvt::BulkMan man(3);
 man.newString("1");
 man.newString("2");
-ASSERT_TRUE(man.getBulk().output() == "1 2 ");
+std::cout << "man.getBulkOutput()"  << man.getBulkOutput() << std::endl;
+ASSERT_TRUE(man.getBulkOutput() == "1 2 ");
 }
 
-TEST(GOOGLE_TEST4, test4)
+TEST(GOOGLE_TEST1, test4)
 {
     bvt::BulkMan man(6);
 man.newString("{");
@@ -44,26 +42,11 @@ man.newString("{");
 man.newString("2");
 man.newString("{");
 man.newString("2");
-ASSERT_TRUE(man.getBulk().size() == 3);
-ASSERT_TRUE(man.getBulk().output() == "2 2 2 ");
+ASSERT_TRUE(man.getBulkSize() == 3);
+ASSERT_TRUE(man.getBulkOutput() == "2 2 2 ");
 }
 
-TEST(GOOGLE_TEST5, test5)
-{
-    bvt::BulkMan man(6);
-man.newString("{");
-man.newString("2");
-man.newString("{");
-man.newString("2");
-man.newString("{");
-man.newString("2");
-man.newString("}");
-man.newString("}");
-ASSERT_TRUE(man.getBulk().size() == 3);
-ASSERT_TRUE(man.getBulk().output() == "2 2 2 ");
-}
-
-TEST(GOOGLE_TEST6, test6)
+TEST(GOOGLE_TEST1, test5)
 {
     bvt::BulkMan man(6);
 man.newString("{");
@@ -74,8 +57,23 @@ man.newString("{");
 man.newString("2");
 man.newString("}");
 man.newString("}");
+ASSERT_TRUE(man.getBulkSize() == 3);
+ASSERT_TRUE(man.getBulkOutput() == "2 2 2 ");
+}
+
+TEST(GOOGLE_TEST1, test6)
+{
+    bvt::BulkMan man(6);
+man.newString("{");
+man.newString("2");
+man.newString("{");
+man.newString("2");
+man.newString("{");
+man.newString("2");
 man.newString("}");
-ASSERT_TRUE(man.getBulk().size() == 0);
+man.newString("}");
+man.newString("}");
+ASSERT_TRUE(man.getBulkSize() == 0);
 }
 
 int main(int argc, char** argv) {

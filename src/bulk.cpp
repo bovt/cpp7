@@ -8,7 +8,7 @@
 int main(int argc, char const *argv[]) {
         std::cout << "Hello world" << std::endl;
 
-        bvt::BulkMan bm(2);
+        bvt::BulkMan bm(7);
 
         bvt::Report report{&bm};
         bvt::UserInterface ui{&bm};
