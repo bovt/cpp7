@@ -21,18 +21,17 @@ namespace bvt {
         std::string name() const { return name_time; };
 
         size_t size() const { return commands.size(); }
+
         std::string output() const {
             std::string res;
             std::for_each(commands.begin(), commands.end(), [&](const auto &a) {
-                res += a + " ";
+                res += a + ", ";
             });
+            if (res.length() > 1) {
+                res.pop_back();
+                res.pop_back();
+            };
             return res;
-        };
-
-
-        void clear() {
-            commands.clear();
-            name_time = "";
         }
 
     protected:
@@ -54,11 +53,8 @@ namespace bvt {
 
     class DynamicBulkHandler : public IBulkHandler {
     public:
-        DynamicBulkHandler() {
-            commands.reserve(255); // TODO: Сколько резервировать
-    };
-
         IBulkHandlerPtr push(const std::string &cmd);
+
     private:
         int nesting_count = 0;
     };

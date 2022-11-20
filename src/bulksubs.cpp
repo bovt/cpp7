@@ -8,28 +8,22 @@
 
 namespace bvt {
 
-    Report:: Report(Observable *lang) {
-        lang->subscribe(this);
+    Report::Report(Observable *observable) {
+        observable->subscribe(this);
     }
 
-    void Report:: update(const IBulkHandlerPtr b) {
-        std::cout << "file print"  << std::endl;
- /*       std::ofstream a("bulk");
-        a << "file print" << std::endl;
+    void Report::update(std::string bulkOutput, std::string bulkName) {
+        std::ofstream a("bulk" + bulkName);
+        a << "bulk: " << bulkOutput << std::endl;
         a.close();
-*/
-//        std::ofstream a("bulk" + b.name());
-//        a << b.output() << std::endl;
-//        a.close();
     }
 
-    UserInterface:: UserInterface(Observable *lang) {
-        lang->subscribe(this);
+    UserInterface::UserInterface(Observable *observable) {
+        observable->subscribe(this);
     }
 
-    void UserInterface:: update(const IBulkHandlerPtr b) {
-        std::cout << "console print" << std::endl;
-        std::cout << "bulk: " << b->output() << std::endl;
+    void UserInterface::update(std::string bulkOutput, std::string bulkName) {
+        std::cout << "bulk: " << bulkOutput << std::endl;
     }
 
 }

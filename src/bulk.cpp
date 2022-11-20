@@ -2,31 +2,30 @@
 // Created by BVT.MI on 16.10.2022.
 //
 #include <iostream>
-#include <unistd.h>
 #include "bulkman.h"
 
 int main(int argc, char const *argv[]) {
-        std::cout << "Hello world" << std::endl;
+    std::cout << "Hello world" << std::endl;
 
-        bvt::BulkMan bm(3);
+    bvt::BulkMan bm(3);
 
-        bvt::Report report{&bm};
-        bvt::UserInterface ui{&bm};
+    bvt::Report report{&bm};
+    bvt::UserInterface ui{&bm};
 
-        bm.newString("cmd1");
-        bm.newString("cmd2");
-        bm.newString("cmd3");
-        bm.newString("cmd4");
-        bm.newString("cmd5");
-        bm.theEnd();
+    bm.newString("cmd1");
+    bm.newString("cmd2");
+    bm.newString("cmd3");
+    bm.newString("cmd4");
+    bm.newString("cmd5");
+    bm.theEnd();
 
     std::cout << std::endl << "PART2" << std::endl;
 
 
     bvt::BulkMan bm2(3);
 
-        bvt::Report report2{&bm2};
-        bvt::UserInterface ui2{&bm2};
+    bvt::Report report2{&bm2};
+    bvt::UserInterface ui2{&bm2};
 
     bm2.newString("cmd1");
     bm2.newString("cmd2");
@@ -49,4 +48,4 @@ int main(int argc, char const *argv[]) {
 
     return 0;
 
-    }
+}

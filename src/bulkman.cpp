@@ -3,32 +3,33 @@
 //
 
 #include "bulkman.h"
-#include <unistd.h>
 #include <iostream>
 
 namespace bvt {
 
-        void BulkMan :: subscribe(Observer *obs) {
-            m_subs.push_back(obs);
-        }
+    void BulkMan::subscribe(Observer *obs) {
+        m_subs.push_back(obs);
+    }
 
-        void BulkMan :: set_language() {
-            newString("sdfsdfasdf");
-            notify();
-        }
+    std::string BulkMan::getBulkOutput() {
+        return currentBulk->output();
+    }
 
-        void BulkMan :: notify() {
-            std::cout << "bulk: " << currentBulk->output() << std::endl;
-//            for (auto s : m_subs) {
-//                s->update(currentBulk);
-//            }
+    std::string BulkMan::getBulkName() {
+        return currentBulk->name();
+    }
+
+    void BulkMan::notify() {
+        for (auto s: m_subs) {
+            s->update(getBulkOutput(), getBulkName());
         }
-    void BulkMan::newString(const std::string& input) {
+    }
+
+    void BulkMan::newString(const std::string &input) {
         IBulkHandlerPtr newstate = currentBulk->push(input);
-        if (newstate)
-        {
+        if (newstate) {
             if (currentBulk->output() != "") { notify(); }
-            currentBulk = std::move (newstate);
+            currentBulk = std::move(newstate);
         };
     }
 
