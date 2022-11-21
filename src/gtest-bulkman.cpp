@@ -27,7 +27,7 @@ TEST(GOOGLE_TEST1, test3) {
     man.newString("1");
     man.newString("2");
     std::cout << "man.getBulkOutput()" << man.getBulkOutput() << std::endl;
-    ASSERT_TRUE(man.getBulkOutput() == "1 2 ");
+    ASSERT_TRUE(man.getBulkOutput() == "1, 2");
 }
 
 TEST(GOOGLE_TEST1, test4) {
@@ -39,7 +39,7 @@ TEST(GOOGLE_TEST1, test4) {
     man.newString("{");
     man.newString("2");
     ASSERT_TRUE(man.getBulkSize() == 3);
-    ASSERT_TRUE(man.getBulkOutput() == "2 2 2 ");
+    ASSERT_TRUE(man.getBulkOutput() == "2, 2, 2");
 }
 
 TEST(GOOGLE_TEST1, test5) {
@@ -53,7 +53,7 @@ TEST(GOOGLE_TEST1, test5) {
     man.newString("}");
     man.newString("}");
     ASSERT_TRUE(man.getBulkSize() == 3);
-    ASSERT_TRUE(man.getBulkOutput() == "2 2 2 ");
+    ASSERT_TRUE(man.getBulkOutput() == "2, 2, 2");
 }
 
 TEST(GOOGLE_TEST1, test6) {

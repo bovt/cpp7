@@ -7,8 +7,9 @@
 
 namespace bvt {
 
-    void BulkMan::subscribe(Observer *obs) {
-        m_subs.push_back(obs);
+
+    void BulkMan::subscribe(const std::shared_ptr<Observer>& obs) {
+        m_subs.emplace_back(obs);
     }
 
     std::string BulkMan::getBulkOutput() {
@@ -20,15 +21,22 @@ namespace bvt {
     }
 
     void BulkMan::notify() {
-        for (auto s: m_subs) {
-            s->update(getBulkOutput(), getBulkName());
+       auto iter = m_subs.begin();
+        while (iter != m_subs.end()) {
+            auto ptr = iter->lock();
+            if (ptr) {
+                ptr->update(getBulkOutput(), getBulkName());
+                ++iter;
+            } else {
+                m_subs.erase(iter++);
+            }
         }
     }
 
     void BulkMan::newString(const std::string &input) {
         IBulkHandlerPtr newstate = currentBulk->push(input);
         if (newstate) {
-            if (currentBulk->output() != "") { notify(); }
+            if (!currentBulk->output().empty()) { notify(); }
             currentBulk = std::move(newstate);
         };
     }

@@ -9,7 +9,6 @@
 namespace bvt {
 
     Report::Report(Observable *observable) {
-        observable->subscribe(this);
     }
 
     void Report::update(std::string bulkOutput, std::string bulkName) {
@@ -19,7 +18,6 @@ namespace bvt {
     }
 
     UserInterface::UserInterface(Observable *observable) {
-        observable->subscribe(this);
     }
 
     void UserInterface::update(std::string bulkOutput, std::string bulkName) {
