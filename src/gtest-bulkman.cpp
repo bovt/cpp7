@@ -2,7 +2,7 @@
 // Created by BVT.MI on 12.11.2022.
 //
 
-#include <..\googletest\include\gtest\gtest.h>
+#include <../googletest/include/gtest/gtest.h>
 #include <string>
 #include "bulkman.h"
 
